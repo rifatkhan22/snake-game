@@ -49,6 +49,13 @@ function drawSnake() {
   });
 }
 
+document.addEventListener("keyup", setDirection);
+
+function setDirection(event) {
+  const newDirection = event.key;
+  console.log(newDirection);
+}
+
 //number of vertical/horizontal squares
 const horizontalSquare = width / squareSize; //400/20 =>20
 const verticalSquare = height / squareSize; //400/20 =>20
