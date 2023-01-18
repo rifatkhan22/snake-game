@@ -14,11 +14,21 @@ const height = canvas.height;
 const fps = 1000 / 15; //15 frames per sec
 let gameLoop;
 const squareSize = 20;
+let gameStarted = false;
 
 //game colors
 let boardColor = "#000000";
 let headColor = "#03c03c";
 let bodyColor = "#95baf7";
+
+//direction
+let currentDirection = "";
+const directions = {
+  RIGHT: "ArrowRight",
+  LEFT: "ArrowLeft",
+  UP: "ArrowUp",
+  DOWN: "ArrowDown",
+};
 
 //draw board
 function drawBoard() {
@@ -49,11 +59,44 @@ function drawSnake() {
   });
 }
 
-document.addEventListener("keyup", setDirection);
+function moveSnake() {
+  if (!gameStarted) return;
+  //get head position
+  const headPosition = { ...snake[0] };
 
+  //change head position
+  switch (currentDirection) {
+    case directions.RIGHT:
+      headPosition.x += 1;
+      break;
+    case directions.LEFT:
+      headPosition.x -= 1;
+      break;
+    case directions.UP:
+      headPosition.y -= 1;
+      break;
+    case directions.DOWN:
+      headPosition.y += 1;
+      break;
+  }
+  //remove tail
+  snake.pop();
+
+  //unshift the new head
+  snake.unshift(headPosition);
+}
+
+//keyup event listener
+document.addEventListener("keyup", setDirection);
 function setDirection(event) {
   const newDirection = event.key;
-  console.log(newDirection);
+
+  if (!gameStarted) {
+    gameStarted = true;
+    gameLoop = setInterval(frame, fps);
+  }
+
+  currentDirection = newDirection;
 }
 
 //number of vertical/horizontal squares
@@ -83,7 +126,7 @@ function drawFood() {
 function frame() {
   drawBoard();
   drawFood();
-  //   moveSnake();
+  moveSnake();
   drawSnake();
   //   displayScore();
 
@@ -92,4 +135,4 @@ function frame() {
   //     gameOver();
   //   }
 }
-gameLoop = setInterval(frame, fps);
+frame();
