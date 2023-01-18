@@ -90,13 +90,21 @@ function moveSnake() {
 document.addEventListener("keyup", setDirection);
 function setDirection(event) {
   const newDirection = event.key;
+  const oldDirection = currentDirection;
 
-  if (!gameStarted) {
-    gameStarted = true;
-    gameLoop = setInterval(frame, fps);
+  if (
+    (newDirection === directions.LEFT && oldDirection !== directions.RIGHT) ||
+    (newDirection === directions.RIGHT && oldDirection !== directions.LEFT) ||
+    (newDirection === directions.UP && oldDirection !== directions.DOWN) ||
+    (newDirection === directions.DOWN && oldDirection !== directions.UP)
+  ) {
+    if (!gameStarted) {
+      gameStarted = true;
+      gameLoop = setInterval(frame, fps);
+    }
+
+    currentDirection = newDirection;
   }
-
-  currentDirection = newDirection;
 }
 
 //number of vertical/horizontal squares
