@@ -49,10 +49,33 @@ function drawSnake() {
   });
 }
 
+//number of vertical/horizontal squares
+const horizontalSquare = width / squareSize; //400/20 =>20
+const verticalSquare = height / squareSize; //400/20 =>20
+//food
+let food = createFood(); //{return x and y positions}
+
+function createFood() {
+  let food = {
+    x: Math.floor(Math.random() * horizontalSquare),
+    y: Math.floor(Math.random() * verticalSquare),
+  };
+  while (snake.some((square) => square.x === food.x && square.y === food.y)) {
+    food = {
+      x: Math.floor(Math.random() * horizontalSquare),
+      y: Math.floor(Math.random() * verticalSquare),
+    };
+  } //keep generating the food using the while loop as long food item and snake have the same position
+  return food;
+}
+
+function drawFood() {
+  drawSquare(food.x, food.y, "red");
+}
 //loop
 function frame() {
   drawBoard();
-  //   drawFood();
+  drawFood();
   //   moveSnake();
   drawSnake();
   //   displayScore();
