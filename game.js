@@ -13,9 +13,10 @@ const height = canvas.height;
 //game vars
 const fps = 1000 / 15; //15 frames per sec
 let gameLoop;
+const squareSize = 20;
 
 //game colors
-let boardColor = "#FFFFFF";
+let boardColor = "#000000";
 
 //draw board
 function drawBoard() {
@@ -23,9 +24,20 @@ function drawBoard() {
   context.fillRect(0, 0, width, height);
 }
 
+//draw square
+function drawSquare(x, y, color) {
+  context.fillStyle = color;
+  context.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
+
+  context.strokeStyle = boardColor;
+  context.strokeRect(x * squareSize, y * squareSize, squareSize, squareSize);
+}
+
 //loop
 function frame() {
   drawBoard();
+  drawSquare(10, 2, "#FFFFFF");
+  drawSquare(10, 3, "#FFFFFF");
   //   drawFood();
   //   moveSnake();
   //   drawSnake();
