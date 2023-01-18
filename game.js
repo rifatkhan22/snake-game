@@ -17,6 +17,8 @@ const squareSize = 20;
 
 //game colors
 let boardColor = "#000000";
+let headColor = "#03c03c";
+let bodyColor = "#95baf7";
 
 //draw board
 function drawBoard() {
@@ -33,14 +35,26 @@ function drawSquare(x, y, color) {
   context.strokeRect(x * squareSize, y * squareSize, squareSize, squareSize);
 }
 
+//snake
+let snake = [
+  { x: 2, y: 0 }, //head of the snake
+  { x: 1, y: 0 }, //body of the snake
+  { x: 0, y: 0 }, //tail of the snake
+];
+
+function drawSnake() {
+  snake.forEach((square, index) => {
+    const color = index === 0 ? headColor : bodyColor;
+    drawSquare(square.x, square.y, color);
+  });
+}
+
 //loop
 function frame() {
   drawBoard();
-  drawSquare(10, 2, "#FFFFFF");
-  drawSquare(10, 3, "#FFFFFF");
   //   drawFood();
   //   moveSnake();
-  //   drawSnake();
+  drawSnake();
   //   displayScore();
 
   //   if (hitWall() || hitSelf()) {
