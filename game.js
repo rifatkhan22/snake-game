@@ -2,6 +2,7 @@
 const scoreEl = document.querySelector(".score");
 const highScoreEl = document.querySelector(".high-score");
 const gameOverEl = document.querySelector(".game-over");
+const playAgainButton = document.querySelector(".play-again");
 
 //select canvas
 const canvas = document.getElementById("canvas");
@@ -207,3 +208,26 @@ function frame() {
   }
 }
 frame();
+
+//restart the game
+
+playAgainButton.addEventListener("click", restartGame);
+function restartGame() {
+  //reset snake length and position
+  snake = [
+    { x: 2, y: 0 }, //head of the snake
+    { x: 1, y: 0 }, //body of the snake
+    { x: 0, y: 0 }, //tail of the snake
+  ];
+  currentDirection = "";
+  directionsQueue = [];
+
+  //hide the game over the screen
+  gameOverEl.classList.add("hide");
+
+  //reset the gameStart state to false
+  gameStarted = false;
+
+  //redraw the whole canvas
+  frame();
+}
