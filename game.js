@@ -1,6 +1,7 @@
 //select elements
 const scoreEl = document.querySelector(".score");
 const highScoreEl = document.querySelector(".high-score");
+const gameOverEl = document.querySelector(".game-over");
 
 //select canvas
 const canvas = document.getElementById("canvas");
@@ -152,9 +153,12 @@ function drawFood() {
 
 //score
 const initialSnakeLength = snake.length;
+let score = 0;
+let highScore = 0;
 function renderScore() {
-  let score = snake.length - initialSnakeLength;
+  score = snake.length - initialSnakeLength;
   scoreEl.innerHTML = `⭐️ ${score}`;
+  highScoreEl.innerHTML = `🏆 ${highScore}`;
 }
 
 //hit wall function
@@ -175,7 +179,20 @@ function hitSelf() {
 
   return snakeBody.some((square) => square.x === head.x && square.y === head.y);
 }
+//game over
+function gameOver() {
+  //select score and high score elements
+  const scoreEl = document.querySelector(".game-over-score .current");
+  const highScoreEl = document.querySelector(".game-over-score .high");
+  //calculate the high score
+  highScore = Math.max(score, highScore);
 
+  //update the score and high score el
+  scoreEl.innerHTML = `⭐️ ${score}`;
+  highScoreEl.innerHTML = `🏆 ${highScore}`;
+  //show game over el
+  gameOverEl.classList.remove("hide");
+}
 //loop
 function frame() {
   drawBoard();
@@ -185,7 +202,7 @@ function frame() {
   renderScore();
   if (hitWall() || hitSelf()) {
     clearInterval(gameLoop);
-    //gameOver();
+    gameOver();
   }
 }
 frame();
