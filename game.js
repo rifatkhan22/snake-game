@@ -154,7 +154,7 @@ function drawFood() {
 //score
 const initialSnakeLength = snake.length;
 let score = 0;
-let highScore = 0;
+let highScore = localStorage.getItem("high-score") || 0;
 function renderScore() {
   score = snake.length - initialSnakeLength;
   scoreEl.innerHTML = `⭐️ ${score}`;
@@ -186,6 +186,7 @@ function gameOver() {
   const highScoreEl = document.querySelector(".game-over-score .high");
   //calculate the high score
   highScore = Math.max(score, highScore);
+  localStorage.setItem("high-score", highScore);
 
   //update the score and high score el
   scoreEl.innerHTML = `⭐️ ${score}`;
