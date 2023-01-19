@@ -1,5 +1,8 @@
-//select canvas
+//select elements
+const scoreEl = document.querySelector(".score");
+const highScoreEl = document.querySelector(".high-score");
 
+//select canvas
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
@@ -146,13 +149,21 @@ function createFood() {
 function drawFood() {
   drawSquare(food.x, food.y, "red");
 }
+
+//score
+const initialSnakeLength = snake.length;
+function renderScore() {
+  let score = snake.length - initialSnakeLength;
+  scoreEl.innerHTML = `⭐️ ${score}`;
+}
+
 //loop
 function frame() {
   drawBoard();
   drawFood();
   moveSnake();
   drawSnake();
-  //   renderScore();
+  renderScore();
 
   //   if (hitWall() || hitSelf()) {
   //     clearInterval(gameLoop);
