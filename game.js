@@ -168,6 +168,13 @@ function hitWall() {
     head.y >= verticalSquare
   );
 }
+//hit self
+function hitSelf() {
+  const snakeBody = [...snake];
+  const head = snakeBody.shift();
+
+  return snakeBody.some((square) => square.x === head.x && square.y === head.y);
+}
 
 //loop
 function frame() {
