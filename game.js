@@ -23,6 +23,7 @@ let bodyColor = "#95baf7";
 
 //direction
 let currentDirection = "";
+let directionsQueue = [];
 const directions = {
   RIGHT: "ArrowRight",
   LEFT: "ArrowLeft",
@@ -64,6 +65,12 @@ function moveSnake() {
   //get head position
   const headPosition = { ...snake[0] };
 
+  //consume the first direction in array
+  //directionsQueue =["arrowleft",arrowdown]
+  if (directionsQueue.length) {
+    currentDirection = directionsQueue.shift();
+  }
+
   //change head position
   switch (currentDirection) {
     case directions.RIGHT:
@@ -103,7 +110,7 @@ function setDirection(event) {
       gameLoop = setInterval(frame, fps);
     }
 
-    currentDirection = newDirection;
+    directionsQueue.push(newDirection);
   }
 }
 
@@ -136,7 +143,7 @@ function frame() {
   drawFood();
   moveSnake();
   drawSnake();
-  //   displayScore();
+  //   renderScore();
 
   //   if (hitWall() || hitSelf()) {
   //     clearInterval(gameLoop);
