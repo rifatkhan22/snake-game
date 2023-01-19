@@ -86,11 +86,20 @@ function moveSnake() {
       headPosition.y += 1;
       break;
   }
-  //remove tail
-  snake.pop();
+  if (hasEatenFood()) {
+    food = createFood();
+  } else {
+    //remove tail
+    snake.pop();
+  }
 
   //unshift the new head
   snake.unshift(headPosition);
+}
+
+function hasEatenFood() {
+  const head = snake[0];
+  return head.x === food.x && head.y === food.y;
 }
 
 //keyup event listener
