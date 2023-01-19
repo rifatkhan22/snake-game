@@ -157,6 +157,18 @@ function renderScore() {
   scoreEl.innerHTML = `⭐️ ${score}`;
 }
 
+//hit wall function
+function hitWall() {
+  const head = snake[0];
+
+  return (
+    head.x < 0 ||
+    head.x >= horizontalSquare ||
+    head.y < 0 ||
+    head.y >= verticalSquare
+  );
+}
+
 //loop
 function frame() {
   drawBoard();
@@ -164,10 +176,9 @@ function frame() {
   moveSnake();
   drawSnake();
   renderScore();
-
-  //   if (hitWall() || hitSelf()) {
-  //     clearInterval(gameLoop);
-  //     gameOver();
-  //   }
+  if (hitWall() || hitSelf()) {
+    clearInterval(gameLoop);
+    //gameOver();
+  }
 }
 frame();
